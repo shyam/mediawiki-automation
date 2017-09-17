@@ -1,15 +1,13 @@
 - name: ensure epel repo is installed
-  yum: name={{ item }} state=installed
-  with_items:
-   - epel-release
+  yum: name=epel-release state=installed
   tags: base
 
 - name: ensure timezone
-  copy: src=/usr/share/zoneinfo/{{ server_timezone }} dest=/etc/localtime mode=0644 owner=root group=root backup=yes
+  copy: src=/usr/share/zoneinfo/{{server_timezone}} dest=/etc/localtime mode=0644 owner=root group=root backup=yes
   tags: base
 
 - name: install the base packages
-  yum: name={{ item }} state=installed
+  yum: name={{item}} state=installed
   with_items:
    - htop
    - curl
@@ -24,7 +22,7 @@
   selinux: policy=targeted state=permissive
 
 - name: update sysctl.conf
-  sysctl: name={{ item.src }} value={{ item.dest }} state=present
+  sysctl: name={{item.src}} value={{item.dest}} state=present
   with_items:
     - { src: 'fs.file-max', dest: 299999 }
     - { src: 'net.ipv4.tcp_timestamps', dest: 0 }
@@ -33,23 +31,17 @@
   tags: base
 
 - name: setup limits.conf
-  copy: src={{ item.src }} dest={{ item.dest }} mode=0644 owner=root group=root
-  with_items:
-    - { src: 'limits.conf', dest: '/etc/security/limits.conf' }
+  copy: src=limits.conf dest=/etc/security/limits.conf mode=0644 owner=root group=root
   notify:
   - reload sysctl
   tags: base
 
 - name: setup ssh
-  copy: src={{ item.src }} dest={{ item.dest }} mode=0644 owner=root group=root backup=yes
-  with_items:
-    - { src: 'sshd_config', dest: '/etc/ssh/sshd_config' }
+  copy: src=sshd_config dest=/etc/ssh/sshd_config mode=0644 owner=root group=root backup=yes
   notify:
   - reload sshd
   tags: base
 
 - name: ntp service state
-  service: name={{ item }} state=started enabled=yes
-  with_items:
-   - ntpd
+  service: name=ntpd state=started enabled=yes
   tags: base

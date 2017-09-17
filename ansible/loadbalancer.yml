@@ -1,0 +1,11 @@
+---
+- name: gather facts of all hosts
+  hosts: all
+  tasks: []
+
+- name: configure and deploy the loadbalancer
+  hosts: loadbalancer
+  become: true
+  roles:
+    - base
+    - haproxy

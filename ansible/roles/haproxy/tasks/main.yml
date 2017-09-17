@@ -1,0 +1,12 @@
+- name: install the haproxy package
+  yum: name=haproxy state=installed
+  tags: haproxy
+
+- name: setup haproxy configuration file
+  template: src=haproxy.cfg.j2 dest={{haproxy_cfg_location}} mode=0644 owner=root group=root
+  notify: reload haproxy
+  tags: haproxy
+
+- name: haproxy service state
+  service: name=haproxy state=started enabled=yes
+  tags: haproxy

@@ -1,5 +1,5 @@
 - name: install the mariadb server and mysql-python
-  yum: name={{ item }} state=installed
+  yum: name={{item}} state=installed
   with_items:
   - MySQL-python
   - mariadb
@@ -12,7 +12,7 @@
 
 # note: 'localhost' needs to be the last item for idempotency
 - name: update mariadb root password for all root accounts
-  mysql_user: name=root host={{ item }} password={{ mysql_root_password }} priv=*.*:ALL,GRANT
+  mysql_user: name=root host={{item}} password={{mysql_root_password}} priv=*.*:ALL,GRANT
   with_items:
     - "%"
     - "127.0.0.1"
