@@ -6,5 +6,3 @@ httpd24_mediawiki_home: "{{httpd24_www_dir}}/mediawiki"
 mediawiki_app_version: "mediawiki-{{mediawiki_version}}"
 mediawiki_app_download_url: "{{mediawiki_download_url}}"
 mediawiki_app_path: "{{httpd24_mediawiki_home}}/{{mediawiki_app_version}}"
-mediawiki_app_conf_file: "{{httpd24_mediawiki_home}}/{{mediawiki_app_version}}/LocalSettings.php"
-
