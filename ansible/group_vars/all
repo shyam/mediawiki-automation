@@ -1,0 +1,9 @@
+# variables for mediawiki-automation
+
+url: "subdomain.host.tld"
+
+server_timezone: "Asia/Kolkata"
+database_root_password: "xr6ATDGB"
+
+mediawiki_version: "1.29.1"
+mediawiki_download_url: "http://releases.wikimedia.org/mediawiki/1.29/mediawiki-1.29.1.tar.gz"

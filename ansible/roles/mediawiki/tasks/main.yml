@@ -1,0 +1,35 @@
+- name: install the base packages
+  yum: name={{item}} state=installed
+  with_items:
+   - MySQL-python
+   - mariadb
+  tags: mediawiki
+
+- name: add mediawiki directory
+  file: path={{item}} mode=0755 state=directory owner=root group=root recurse=yes
+  with_items:
+   - "{{httpd24_mediawiki_home}}"
+  tags: mediawiki
+
+- name: download and unarchive mediawiki
+  unarchive: src={{mediawiki_app_download_url}} dest={{httpd24_mediawiki_home}} remote_src=yes
+  tags: mediawiki
+
+- name: setup httpd configuration file
+  template: src={{item.src}} dest={{item.dest}} mode=0644 owner=root group=root
+  with_items:
+   - { src: "mediawiki.conf.j2", dest: "{{httpd24_mediawiki_conf_file}}" }
+  notify: reload httpd24-httpd
+  tags: mediawiki
+
+- name: symlink mediawiki app under mediawiki home
+  file: src={{item.src}} dest={{item.dest}} state=link owner=root group=root force=yes
+  with_items:
+   - { src: "{{mediawiki_app_path}}", dest: "{{httpd24_mediawiki_home}}/mediawiki"}
+  notify: reload httpd24-httpd
+  tags: mediawiki
+
+- name: httpd24-httpd service state
+  service: name=httpd24-httpd enabled=yes
+  tags: mediawiki
+  

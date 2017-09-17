@@ -1,0 +1,7 @@
+<VirtualHost *:80>
+  ServerAdmin webmaster@{{url}}
+  DocumentRoot "{{httpd24_mediawiki_home}}"
+  ServerName {{url}}
+  ErrorLog "logs/{{url}}-error_log"
+  CustomLog "logs/{{url}}-access_log" common
+</VirtualHost>

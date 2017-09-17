@@ -1,0 +1,10 @@
+httpd24_confd_dir: "/opt/rh/httpd24/root/etc/httpd/conf.d"
+httpd24_mediawiki_conf_file: "{{httpd24_confd_dir}}/mediawiki.conf"
+httpd24_www_dir: "/opt/rh/httpd24/root/var/www"
+httpd24_mediawiki_home: "{{httpd24_www_dir}}/mediawiki"
+
+mediawiki_app_version: "mediawiki-{{mediawiki_version}}"
+mediawiki_app_download_url: "{{mediawiki_download_url}}"
+mediawiki_app_path: "{{httpd24_mediawiki_home}}/{{mediawiki_app_version}}"
+mediawiki_app_conf_file: "{{httpd24_mediawiki_home}}/{{mediawiki_app_version}}/LocalSettings.php"
+

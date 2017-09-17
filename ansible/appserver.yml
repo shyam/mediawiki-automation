@@ -1,0 +1,12 @@
+---
+- name: gather facts of all hosts
+  hosts: all
+  tasks: []
+
+- name: configure and deploy the appserver
+  hosts: appserver
+  become: true
+  roles:
+    - base
+    - apache_php
+    - mediawiki

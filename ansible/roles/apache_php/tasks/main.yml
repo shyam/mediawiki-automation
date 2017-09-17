@@ -1,0 +1,24 @@
+- name: ensure scl repo is installed
+  yum: name={{ item }} state=installed
+  with_items:
+   - centos-release-scl
+  tags: apache_php
+
+- name: install the httpd 2.4 and php 5.5 packages
+  yum: name={{ item }} state=installed
+  with_items:
+   - httpd24-httpd
+   - mariadb
+   - php55
+   - php55-php
+   - php55-php-mbstring
+   - php55-php-mysqlnd
+   - php55-php-gd
+   - php55-php-xml
+  tags: apache_php
+
+- name: httpd24-httpd service state
+  service: name={{ item }} state=started enabled=yes
+  with_items:
+   - httpd24-httpd
+  tags: apache_php
