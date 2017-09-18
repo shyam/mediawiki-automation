@@ -24,23 +24,32 @@ There are 3 server playbooks applicable. A `db` playbook that sets up MySQL/Mari
 
 The commands to be run for each playbook are given below. 
 
-##### DB role:
+##### DB playbook:
 
 ````
 [ansible]$ ansible-playbook -i environments/demo.env db.yml
 ````
 
-##### APPSERVER role:
+##### APPSERVER playbook:
 
 ````
 [ansible]$ ansible-playbook -i environments/demo.env appserver.yml
 ````
 
-##### LOADBALANCER role:
+##### LOADBALANCER playbook:
 
 ````
 [ansible]$ ansible-playbook -i environments/demo.env loadbalancer.yml
 ````
+
+The run log of the above commands can be accessed [here](ansible-run-log.md).
+
+### Notes:
+
+* HAProxy is configured to run as a sticky loadbalancer as MediaWiki stores sessions on local PHP disk cache.
+* The MediaWiki instance is pending first time configuration.
+* The MediaWiki instance can be accessed under `http://LOADBALANCER_PUBLIC_IP/mediawiki/`
+* Basic SSH hardening and instance prep. has been automated for all the nodes. Refer `roles/base` for more information.
 
 ### Areas of improvement:
 
@@ -48,7 +57,7 @@ The commands to be run for each playbook are given below.
   * VPC Subnet segmentation for nodes based on their roles. (Only loadbalancer role requires external IP, for all other roles a NAT-Gateway is sufficient).
   * VPC Security groups appropriate for nodes based on their roles.
   * SSL configuration with appropriate ciphers at loadbalancer.
-  * Host level firewall ( iptables ).
+  * Host level firewall (iptables).
   * Setup appropriate SELinux contexts and re-enable it.
 
 * ##### High Availability
@@ -59,8 +68,9 @@ The commands to be run for each playbook are given below.
 * ##### Scalability*
   * PHP accelerators.
   * Cache servers - Memcached/Redis.
+  * Move application SessionStickiness to common PHP cache rather than in-disk.
   * Instance (re)sizing based on performance.
-  * Autosetup of configuration (localsettings.php) for Autoscaling.
+  * Autosetup of configuration (LocalSettings.php) for Autoscaling.
 
 _*Scalability tuning depends on the traffic patterns, use case and handling specific bottlenecks, but the above are some of the usual options to get started with._
 
