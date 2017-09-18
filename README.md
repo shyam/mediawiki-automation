@@ -6,9 +6,9 @@ Automation to configure and deploy MediaWiki.
 
 ### Assumptions:
 
-* Provisioning completetion.
+* Provisioning completion.
   * The deployment topology was already provisioned using Cloudformation / Terraform / manually using AWS UI.
-  * The security groups have been configured have HTTP/HTTPS open `externally` for the node that runs loadbalancer and HTTP for the appservers `internally` and MySQL (3306) for the database server `internally`. ( Note: `externally` would mean open to the world and `internally` would mean open to `service-net`.)
+  * The security groups have been configured have HTTP open `externally` for the node that runs loadbalancer and HTTP for the appservers `internally` and MySQL (3306) for the database server `internally`. ( Note: `externally` would mean open to the world and `internally` would mean open to `service-net`.)
   * AMI: CentOS 7 offical image. (Refer: [CentOS Wiki / Cloud / AWS](https://wiki.centos.org/Cloud/AWS) for more information.) [Tested on `ami-ae7bfdb8 / US-EAST-1 / CentOS Linux 7 x86_64 HVM EBS 1703_01`.]
 
 * Ansible preparation completion.
