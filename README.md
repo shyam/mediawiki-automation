@@ -46,7 +46,7 @@ The run log of the above commands can be accessed [here](ansible-run-log.md).
 
 ### Notes:
 
-* HAProxy is configured to run as a sticky loadbalancer as MediaWiki stores sessions on local PHP disk cache.
+* HAProxy is configured to run as a sticky loadbalancer as MediaWiki stores sessions on local disk.
 * The MediaWiki instance is pending first time configuration.
 * The MediaWiki instance can be accessed under `http://LOADBALANCER_PUBLIC_IP/mediawiki/`
 * Basic SSH hardening and instance prep. has been automated for all the nodes. Refer `roles/base` for more information.
@@ -68,7 +68,7 @@ The run log of the above commands can be accessed [here](ansible-run-log.md).
 * ##### Scalability*
   * PHP accelerators.
   * Cache servers - Memcached/Redis.
-  * Move application SessionStickiness to common PHP cache rather than in-disk.
+  * Move application SessionStickiness to common/shared cache rather than local disk.
   * Instance (re)sizing based on performance.
   * Autosetup of configuration (LocalSettings.php) for Autoscaling.
 
