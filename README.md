@@ -13,7 +13,7 @@ Automation to configure and deploy MediaWiki.
 
 * Ansible preparation completion.
   * The `environments/demo.env` are pre-populated with `service-net` IP addresses of the nodes as they will be run from jumpbox. The hostnames in that environment file are named based on the roles played by the nodes.
-  * The `group_vars/all` are filled out with appropriate values.
+  * The `group_vars/all` is updated out with appropriate values. 
   * The `ansible.cfg` is updated with appropriate path to SSH private key associated with that region/account.
 
 ### Structure:
@@ -47,8 +47,9 @@ The run log of the above commands can be accessed [here](ansible-run-log.md).
 ### Notes:
 
 * HAProxy is configured to run as a sticky loadbalancer as MediaWiki stores sessions on local disk.
-* The MediaWiki instance is pending first time configuration.
-* The MediaWiki instance can be accessed under `http://LOADBALANCER_PUBLIC_IP/mediawiki/`
+* The MediaWiki instance is awaiting first time configuration.
+* The MediaWiki instance can be accessed under `http://{LOADBALANCER_PUBLIC_IP|FQDN}/mediawiki/`
+* The `url` in `group_vars/all` is the fqdn of mediawiki instance. It also goes in as the vHost entry for Apache HTTPd instances.
 * Basic SSH hardening and instance prep. has been automated for all the nodes. Refer `roles/base` for more information.
 
 ### Areas of improvement:
